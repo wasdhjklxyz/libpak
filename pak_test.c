@@ -6,16 +6,16 @@
 
 #define TEST_ARRAY "hello world"
 
-#define TEST_FIELDS(F, A)                                                      \
-  F(i8, int8_t)                                                                \
-  F(u8, uint8_t)                                                               \
-  F(i16, int16_t)                                                              \
-  F(u16, uint16_t)                                                             \
-  F(i32, int32_t)                                                              \
-  F(u32, uint32_t)                                                             \
-  F(i64, int64_t)                                                              \
-  F(u64, uint64_t)                                                             \
-  A(arr, char, 29)
+#define TEST_FIELDS(F, A, S)                                                   \
+  F(S, i8, int8_t)                                                             \
+  F(S, u8, uint8_t)                                                            \
+  F(S, i16, int16_t)                                                           \
+  F(S, u16, uint16_t)                                                          \
+  F(S, i32, int32_t)                                                           \
+  F(S, u32, uint32_t)                                                          \
+  F(S, i64, int64_t)                                                           \
+  F(S, u64, uint64_t)                                                          \
+  A(S, arr, char, 29)
 PAK_DEFINE(test, TEST_FIELDS)
 
 int main(void) {
