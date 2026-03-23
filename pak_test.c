@@ -19,7 +19,7 @@
 PAK_DEFINE(test, TEST_FIELDS)
 
 int main(void) {
-  pak_test test = {
+  test_t test = {
       .i8 = 0x12,
       .u8 = 0xAB,
       .i16 = 0x1234,
@@ -35,9 +35,9 @@ int main(void) {
   ssize_t n = pak_serialize_test(&test, buf, sizeof(buf));
   assert(n > 0);
   printf("wire size: %zd bytes\n", n);
-  printf("struct size: %zu bytes\n", sizeof(pak_test));
+  printf("struct size: %zu bytes\n", sizeof(test_t));
 
-  pak_test got = {0};
+  test_t got = {0};
   int ret = pak_deserialize_test(buf, (size_t)n, &got);
   assert(ret == 0);
 

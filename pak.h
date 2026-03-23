@@ -32,24 +32,24 @@ int pak_deserialize(const pak_field_t *fields, size_t nfields, const void *buf,
                     size_t len, void *dst);
 
 #define PAK_DEFINE(name, fields)                                               \
-  typedef struct {                                                             \
+  typedef struct name {                                                        \
     fields(_PAK_SF, _PAK_SA)                                                   \
-  } pak_##name;                                                                \
-  typedef pak_##name _pak_cur_t;                                               \
+  } name##_t;                                                                  \
+  typedef struct name _pak_cur_t;                                              \
   static const pak_field_t pak_fields_##name[] = {fields(_PAK_TF, _PAK_TA)};   \
   static inline size_t pak_sizeof_##name(void) {                               \
     return pak_sizeof(pak_fields_##name, sizeof(pak_fields_##name) /           \
                                              sizeof(pak_fields_##name[0]));    \
   };                                                                           \
-  static inline ssize_t pak_serialize_##name(const pak_##name *src, void *buf, \
-                                             size_t len) {                     \
+  static inline ssize_t pak_serialize_##name(const struct name *src,           \
+                                             void *buf, size_t len) {          \
     return pak_serialize(pak_fields_##name,                                    \
                          sizeof(pak_fields_##name) /                           \
                              sizeof(pak_fields_##name[0]),                     \
                          src, buf, len);                                       \
   }                                                                            \
   static inline int pak_deserialize_##name(const void *buf, size_t len,        \
-                                           pak_##name *dst) {                  \
+                                           struct name *dst) {                 \
     return pak_deserialize(pak_fields_##name,                                  \
                            sizeof(pak_fields_##name) /                         \
                                sizeof(pak_fields_##name[0]),                   \
