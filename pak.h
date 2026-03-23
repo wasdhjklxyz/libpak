@@ -56,6 +56,25 @@ int pak_deserialize(const pak_field_t *fields, size_t nfields, const void *buf,
                            buf, len, dst);                                     \
   }
 
+#define PAK_DEFINE_EMPTY(name)                                                 \
+  typedef struct name {                                                        \
+    char _empty;                                                               \
+  } name##_t;                                                                  \
+  static inline size_t pak_sizeof_##name(void) { return 0; };                  \
+  static inline ssize_t pak_serialize_##name(const struct name *src,           \
+                                             void *buf, size_t len) {          \
+    (void)src;                                                                 \
+    (void)buf;                                                                 \
+    (void)len;                                                                 \
+    return 0;                                                                  \
+  };                                                                           \
+  static inline int pak_deserialize_##name(const void *buf, size_t len,        \
+                                           struct name *dst) {                 \
+    (void)buf;                                                                 \
+    (void)dst;                                                                 \
+    return len == 0 ? 0 : -1;                                                  \
+  }
+
 #ifdef __cplusplus
 }
 #endif
