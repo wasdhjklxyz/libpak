@@ -40,7 +40,7 @@ int pak_deserialize(const pak_field_t *fields, size_t nfields, const void *buf,
   static inline size_t pak_sizeof_##name(void) {                               \
     return pak_sizeof(pak_fields_##name, sizeof(pak_fields_##name) /           \
                                              sizeof(pak_fields_##name[0]));    \
-  };                                                                           \
+  }                                                                            \
   static inline ssize_t pak_serialize_##name(const struct name *src,           \
                                              void *buf, size_t len) {          \
     return pak_serialize(pak_fields_##name,                                    \
@@ -60,14 +60,14 @@ int pak_deserialize(const pak_field_t *fields, size_t nfields, const void *buf,
   typedef struct name {                                                        \
     char _empty;                                                               \
   } name##_t;                                                                  \
-  static inline size_t pak_sizeof_##name(void) { return 0; };                  \
+  static inline size_t pak_sizeof_##name(void) { return 0; }                   \
   static inline ssize_t pak_serialize_##name(const struct name *src,           \
                                              void *buf, size_t len) {          \
     (void)src;                                                                 \
     (void)buf;                                                                 \
     (void)len;                                                                 \
     return 0;                                                                  \
-  };                                                                           \
+  }                                                                            \
   static inline int pak_deserialize_##name(const void *buf, size_t len,        \
                                            struct name *dst) {                 \
     (void)buf;                                                                 \
